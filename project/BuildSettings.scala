@@ -22,9 +22,9 @@ object BuildSettings {
     publishTo := {
       val repoUrl = "http://malinux.ddnsnet:8081/artifactory/"
       if (isSnapshot.value)
-        Some("Artifactory snapshots" at repoUrl + "ctms-snapshot;build.timestamp=" + new java.util.Date().getTime)
+        Some("Artifactory snapshots" at repoUrl + "libs-snapshot-local;build.timestamp=" + new java.util.Date().getTime)
       else
-        Some("Artifactory releases" at repoUrl + "libs-release/")
+        Some("Artifactory releases" at repoUrl + "libs-release-local")
     },
     assemblyJarName in assembly := s"sbt-release-test-${version.value}.jar",
     assemblyMergeStrategy in assembly := {
