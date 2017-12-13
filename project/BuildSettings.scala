@@ -20,7 +20,7 @@ object BuildSettings {
     scalacOptions := Seq("-encoding", "utf8", "-feature", "-unchecked", "-deprecation", "-target:jvm-1.8", "-language:_", "-Xlog-reflective-calls", "-Ywarn-adapted-args"),
     credentials += Credentials("Artifactory Realm", "artv4.imedidata.net", artifactoryUser, artifactoryToken),
     publishTo := {
-      val repoUrl = "http://malinux.ddnsnet:8081/artifactory/"
+      val repoUrl = "http://malinux.ddns.net:8081/artifactory/"
       if (isSnapshot.value)
         Some("Artifactory snapshots" at repoUrl + "libs-snapshot-local;build.timestamp=" + new java.util.Date().getTime)
       else
