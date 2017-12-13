@@ -2,6 +2,8 @@ import java.util
 
 import sbt.Keys._
 import sbt._
+import sbtassembly.AssemblyKeys._
+import sbtassembly.MergeStrategy
 
 object BuildSettings {
   val env: util.Map[String, String] = System.getenv()
@@ -23,6 +25,12 @@ object BuildSettings {
         Some("Artifactory snapshots" at repoUrl + "ctms-snapshot;build.timestamp=" + new java.util.Date().getTime)
       else
         Some("Artifactory releases" at repoUrl + "libs-release/")
+    },
+    assemblyJarName in assembly := s"sbt-release-test-${version.value}.jar",
+    assemblyMergeStrategy in assembly := {
+      case "logback.xml" => MergeStrategy.first
+      case x => val oldStrategy = (assemblyMergeStrategy in assembly).value
+        oldStrategy(x)
     },
     publishMavenStyle := true
   )
