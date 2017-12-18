@@ -20,6 +20,14 @@ val commonSettings = Seq(homepage := Some(
   scalacOptions := Seq("-encoding", "utf8", "-feature", "-unchecked", "-deprecation", "-target:jvm-1.8", "-language:_", "-Xlog-reflective-calls", "-Ywarn-adapted-args")
 )
 
+def jarName(version: String): String = {
+  if (Seq("master", "develop").contains(env.getOrDefault("TRAVIS_BRANCH", ""))) {
+    s"sbt-release-test-${version}.jar"
+  } else {
+    s"sbt-release-test-${version}-build.${env.getOrDefault("TRAVIS_BUILD_NUMBER", "1")}.jar"
+  }
+}
+
 lazy val sbtReleaseTest = project.in(file("."))
   .enablePlugins(AssemblyPlugin)
   .settings(
@@ -31,7 +39,7 @@ lazy val sbtReleaseTest = project.in(file("."))
       "org.scalatest" %% "scalatest" % "3.0.4" % "test"
     ),
     test in assembly := {},
-    assemblyJarName in assembly := s"sbt-release-test-${version.value}.jar",
+    assemblyJarName in assembly := jarName(version.value),
     assemblyMergeStrategy in assembly := {
       case "logback.xml" => MergeStrategy.first
       case x => val oldStrategy = (assemblyMergeStrategy in assembly).value
