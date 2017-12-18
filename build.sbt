@@ -54,6 +54,7 @@ lazy val distribution = project
         Some("Artifactory releases" at repoUrl + "libs-release")
     },
     publishMavenStyle := true,
+    releaseVersionBump := sbtrelease.Version.Bump.Bugfix
     // I am sober. no dependencies.
     packageBin in Compile := (assembly in(sbtReleaseTest, Compile)).value
   )
