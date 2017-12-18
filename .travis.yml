@@ -4,3 +4,19 @@ scala:
 - 2.11.8
 jdk:
 - oraclejdk8
+cache:
+  directories:
+  - $HOME/.ivy2/cache
+  - $HOME/.sbt/boot/
+before_cache:
+- find $HOME/.ivy2 -name "ivydata-*.properties" -delete
+- find $HOME/.sbt -name "*.lock" -delete
+before_install:
+  - export APP_PRIVATE_KEY=$(cat travis/fake_private_key_for_testing)
+script: sbt ++$TRAVIS_SCALA_VERSION test
+
+deploy:
+  - provider: script
+    script: travis/deploy.sh
+    on:
+      all_branches: true
