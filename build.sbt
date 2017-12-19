@@ -7,12 +7,7 @@ import sbtassembly.MergeStrategy
 conflictManager := ConflictManager.strict
 
 lazy val env: util.Map[String, String] = System.getenv()
-lazy val artifactoryUser: String = env.get("REPO_USER")
-lazy val artifactoryToken: String = env.get("REPO_TOKEN")
 lazy val akkaHttpV = "10.0.11"
-//val releaseTagComment    : TaskKey[String]
-//val releaseCommitMessage : TaskKey[String]
-
 
 lazy val commonSettings = Seq(homepage := Some(
   new URL("https://github.com/rojanu/sbt-release-test")),
@@ -39,7 +34,7 @@ lazy val assemblySettings: Seq[Def.SettingsDefinition] = Seq(
 )
 
 lazy val publishSettings = Seq(
-  credentials += Credentials("Artifactory Realm", "malinux.ddns.net", artifactoryUser, artifactoryToken),
+  credentials += Credentials("Artifactory Realm", "malinux.ddns.net", env.get("REPO_USER"), env.get("REPO_TOKEN")),
   publishTo := {
     val repoUrl = "http://malinux.ddns.net:8081/artifactory/"
     if (isSnapshot.value)
