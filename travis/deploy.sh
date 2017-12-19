@@ -5,8 +5,8 @@ setup_git() {
     git config --global user.email "${GIT_USER_EMAIL}"
     git config --global user.name "${GIT_USER_NAME}"
     eval "$(ssh-agent -s)" # Start the ssh agent
-    chmod 600 ${TRAVIS_BUILD_DIR}/rojanu_id_rsa
-    ssh-add ${TRAVIS_BUILD_DIR}/rojanu_id_rsa
+    chmod 600 ${TRAVIS_BUILD_DIR}/travis/rojanu_id_rsa
+    ssh-add ${TRAVIS_BUILD_DIR}/travis/rojanu_id_rsa
 }
 
 if [[ ${TRAVIS_PULL_REQUEST} == false ]] ; then
