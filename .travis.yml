@@ -19,3 +19,4 @@ deploy:
   script: travis/deploy.sh
   on:
     all_branches: true
+if: tag IS blank
