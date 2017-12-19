@@ -10,6 +10,9 @@ lazy val env: util.Map[String, String] = System.getenv()
 lazy val artifactoryUser: String = env.get("REPO_USER")
 lazy val artifactoryToken: String = env.get("REPO_TOKEN")
 lazy val akkaHttpV = "10.0.11"
+//val releaseTagComment    : TaskKey[String]
+//val releaseCommitMessage : TaskKey[String]
+
 
 lazy val commonSettings = Seq(homepage := Some(
   new URL("https://github.com/rojanu/sbt-release-test")),
@@ -23,8 +26,6 @@ lazy val commonSettings = Seq(homepage := Some(
 
 lazy val assemblySettings: Seq[Def.SettingsDefinition] = Seq(
   test in assembly := {},
-//  assemblyJarName in assembly := s"sbt-release-test-${version.value}.jar",
-//  skip in publish := true,
   assemblyMergeStrategy in assembly := {
     case "logback.xml" => MergeStrategy.first
     case x => val oldStrategy = (assemblyMergeStrategy in assembly).value
@@ -47,6 +48,8 @@ lazy val publishSettings = Seq(
       Some("Artifactory releases" at repoUrl + "libs-release")
   },
   publishMavenStyle := true,
+  releaseTagComment    := s"Releasing ${(version in ThisBuild).value} [skip ci]",
+  releaseCommitMessage := s"Setting version to ${(version in ThisBuild).value} [skip ci]",
   releaseVersionBump := sbtrelease.Version.Bump.Bugfix
 )
 
@@ -64,13 +67,3 @@ lazy val sbtReleaseTest = project.in(file("."))
       "org.scalatest" %% "scalatest" % "3.0.4" % "test"
     )
   )
-
-
-//lazy val distribution = project
-//  .settings(
-//    commonSettings,
-//    name := "sbt-release-test",
-//    publishSettings,
-//    // I am sober. no dependencies.
-//    packageBin in Compile := (assembly in(sbtReleaseTest, Compile)).value
-//  )
