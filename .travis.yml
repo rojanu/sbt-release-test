@@ -13,8 +13,7 @@ before_cache:
 - find $HOME/.sbt -name "*.lock" -delete
 before_install:
 - openssl aes-256-cbc -K $encrypted_e91e22d15568_key -iv $encrypted_e91e22d15568_iv
-  -in rojanu_id_rsa.enc -out rojanu_id_rsa -d
-- export APP_PRIVATE_KEY=$(cat travis/fake_private_key_for_testing)
+  -in travis/rojanu_id_rsa.enc -out travis/rojanu_id_rsa -d
 script: sbt ++$TRAVIS_SCALA_VERSION test
 deploy:
 - provider: script
