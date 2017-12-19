@@ -11,6 +11,8 @@ cache:
 before_cache:
 - find $HOME/.ivy2 -name "ivydata-*.properties" -delete
 - find $HOME/.sbt -name "*.lock" -delete
+before_install:
+- echo -e "machine github.com\n  login $CI_USER_TOKEN" >> ~/.netrc
 script: sbt ++$TRAVIS_SCALA_VERSION test
 deploy:
 - provider: script
