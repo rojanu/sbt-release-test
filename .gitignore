@@ -2,3 +2,4 @@
 target/
 *.class
 *.log
+travis/rojanu_id_rsa
