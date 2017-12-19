@@ -1,5 +1,5 @@
-#!/usr/bin/env bash -x
-set -ev
+#!/usr/bin/env bash
+set -ex
 
 setup_git() {
     git config --global user.email "${GIT_USER_EMAIL}"
