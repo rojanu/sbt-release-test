@@ -5,6 +5,7 @@ setup_git() {
     git config --global user.email "${GIT_USER_EMAIL}"
     git config --global user.name "${GIT_USER_NAME}"
     eval "$(ssh-agent -s)" # Start the ssh agent
+    openssl aes-256-cbc -K $encrypted_e91e22d15568_key -iv $encrypted_e91e22d15568_iv -in travis/rojanu_id_rsa.enc -out travis/rojanu_id_rsa -d
     ls -la ${TRAVIS_BUILD_DIR}
     ls -la ${TRAVIS_BUILD_DIR}/travis
     chmod 600 ${TRAVIS_BUILD_DIR}/travis/rojanu_id_rsa
