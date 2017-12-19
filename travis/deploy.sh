@@ -5,9 +5,8 @@ setup_git() {
     git config --global user.email "${GIT_USER_EMAIL}"
     git config --global user.name "${GIT_USER_NAME}"
     eval "$(ssh-agent -s)" # Start the ssh agent
-    echo "${GIT_USER_KEY}" > ~/.ssh/deploy_key.pem
-    chmod 600 ~/.ssh/deploy_key.pem # This key should have push access
-    ssh-add ~/.ssh/deploy_key.pem
+    chmod 600 ${TRAVIS_BUILD_DIR}/rojanu_id_rsa
+    ssh-add ${TRAVIS_BUILD_DIR}/rojanu_id_rsa
 }
 
 if [[ ${TRAVIS_PULL_REQUEST} == false ]] ; then
