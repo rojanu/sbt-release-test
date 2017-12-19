@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -ex
 
 setup_git() {
     git config --global user.email "${GIT_USER_EMAIL}"
@@ -16,8 +16,8 @@ setup_git() {
 
 if [[ ${TRAVIS_PULL_REQUEST} == false ]] ; then
     if [[ ${TRAVIS_BRANCH} == master ]] ; then
-        git checkout master
         setup_git
+        git checkout master
         sbt ++${TRAVIS_SCALA_VERSION} 'release with-defaults skip-tests'
     else
         if [[ ${TRAVIS_BRANCH} != "develop" ]]; then
