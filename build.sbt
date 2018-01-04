@@ -34,13 +34,13 @@ lazy val assemblySettings: Seq[Def.SettingsDefinition] = Seq(
 )
 
 lazy val publishSettings = Seq(
-  credentials += Credentials("Artifactory Realm", "malinux.ddns.net", env.get("REPO_USER"), env.get("REPO_TOKEN")),
+  credentials += Credentials("Artifactory Realm", "artv4.imedidata.net", env.get("ARTIFACTORY_USER"), env.get("ARTIFACTORY_TOKEN")),
   publishTo := {
-    val repoUrl = "http://malinux.ddns.net:8081/artifactory/"
+    val repoUrl = "https://artv4.imedidata.net/artifactory/"
     if (isSnapshot.value)
-      Some("Artifactory snapshots" at repoUrl + "libs-snapshot-local;build.timestamp=" + new java.util.Date().getTime)
+      Some("Artifactory snapshots" at repoUrl + "monitoring-snapshots;build.timestamp=" + new java.util.Date().getTime)
     else
-      Some("Artifactory releases" at repoUrl + "libs-release")
+      Some("Artifactory releases" at repoUrl + "monitoring-release/")
   },
   publishMavenStyle := true,
   releaseTagComment    := s"Releasing ${(version in ThisBuild).value} [skip ci]",
